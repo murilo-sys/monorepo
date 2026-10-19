@@ -4,7 +4,7 @@ export default class TarefaRepository {
   private lista: Tarefa[];
 
   constructor() {
-    this.lista = [new Tarefa("Aprender monorepo", "Aprendendo a criar um monorepo com IA")];
+    this.lista = [];
   }
 
   public listarTarefas(): Tarefa[] {
@@ -14,5 +14,19 @@ export default class TarefaRepository {
 
   public adicionarTarefa(tarefa: Tarefa): void {
     this.lista.push(tarefa);
+  }
+
+  public buscarTarefa(id: string) {
+    return this.lista.find((tarefa) => tarefa.id === id);
+  }
+
+  public atualizarTarefa(tarefaAtualizada: Tarefa): Tarefa | undefined {
+    const index = this.lista.findIndex((tarefa) => tarefa.id === tarefaAtualizada.id);
+
+    if (index === -1) return;
+
+    this.lista[index] = tarefaAtualizada;
+
+    return this.lista[index];
   }
 }

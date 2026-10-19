@@ -1,12 +1,16 @@
+export const instant = false;
+
 import { finalizarTarefa } from "@/actions/finalizarTarefa.action";
 import CriarTarefaForm from "@/components/CriarTarefaForm";
 import { tarefaUseCase } from "@monorepo/backend";
 
-export default function Home() {
+export default async function Home() {
+  const tarefas = await tarefaUseCase.listarTarefas();
+
   return (
     <div>
       <CriarTarefaForm />
-      {tarefaUseCase.listarTarefas().map((tarefa) => {
+      {tarefas.map((tarefa) => {
         return (
           <form
             action={finalizarTarefa.bind(null, tarefa.id)}

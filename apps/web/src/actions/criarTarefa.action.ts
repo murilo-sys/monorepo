@@ -13,7 +13,7 @@ export async function criarTarefaAction(_: unknown, formData: FormData): Promise
   const atividade = String(formData.get("atividade"));
 
   try {
-    tarefaUseCase.criarTarefa(nome, atividade);
+    await tarefaUseCase.criarTarefa(nome, atividade);
     revalidatePath("/");
     return { sucesso: true };
   } catch (error) {

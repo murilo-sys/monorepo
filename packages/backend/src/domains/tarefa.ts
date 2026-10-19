@@ -8,17 +8,22 @@ export class Tarefa {
   private status: StatusTarefa;
   private atividade: string;
 
-  constructor(nome: string, atividade: string) {
-    //Checa se o nome é menor que 3
+  private constructor(id: string, nome: string, atividade: string, status: StatusTarefa) {
     if (nome.trim().length < 3) throw new ErroDeDominio("Nome precisa ter no minímo 3 caracteres");
-
-    //Checa se a atividade é menor que 3
     if (atividade.trim().length < 3) throw new ErroDeDominio("Atividade precisa ter no minímo 3 caracteres");
 
-    this.id = crypto.randomUUID();
+    this.id = id;
     this.nome = nome;
-    this.status = "Pendente";
     this.atividade = atividade;
+    this.status = status;
+  }
+
+  public static criar(nome: string, atividade: string): Tarefa {
+    return new Tarefa(crypto.randomUUID(), nome, atividade, "Pendente");
+  }
+
+  public static reconstruir(id: string, nome: string, atividade: string, status: StatusTarefa): Tarefa {
+    return new Tarefa(id, nome, atividade, status);
   }
 
   public finalizar() {

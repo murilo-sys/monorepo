@@ -9,23 +9,22 @@ export default class TarefaUseCase {
     this.repository = repository;
   }
 
-  public criarTarefa(nome: string, atividade: string) {
-    const novaTarefa = new Tarefa(nome, atividade);
-    this.repository.adicionarTarefa(novaTarefa);
-    return novaTarefa;
+  public async criarTarefa(nome: string, atividade: string) {
+    const novaTarefa = Tarefa.criar(nome, atividade);
+    await this.repository.adicionarTarefa(novaTarefa);
   }
 
-  public listarTarefas(): Tarefa[] {
-    return this.repository.listarTarefas();
+  public async listarTarefas(): Promise<Tarefa[]> {
+    return await this.repository.listarTarefas();
   }
 
-  public finalizarTarefa(id: string) {
-    const tarefa = this.repository.buscarTarefa(id);
+  public async finalizarTarefa(id: string) {
+    const tarefa = await this.repository.buscarTarefa(id);
 
     if (!tarefa) throw new ErroDeDominio("Tarefa não encontrada");
 
     tarefa.finalizar();
 
-    this.repository.atualizarTarefa(tarefa);
+    await this.repository.atualizarTarefa(tarefa);
   }
 }

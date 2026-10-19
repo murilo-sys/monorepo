@@ -1,3 +1,5 @@
+import "server-only";
+
 import ErroDeDominio from "./domains/erro-dominio";
 import TarefaRepository from "./repositories/tarefa-repository";
 import TarefaUseCase from "./use-cases/tarefa-use-case";
